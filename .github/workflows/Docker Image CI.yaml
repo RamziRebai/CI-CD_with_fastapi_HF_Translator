@@ -30,6 +30,6 @@ jobs:
         # Replace 'your-docker-image' with the name of your Docker image.
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
         docker tag deploy_translate "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:${GITHUB_SHA}"
-        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/your-docker-image:${GITHUB_SHA}"
+        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:${GITHUB_SHA}"
         docker tag deploy_translate "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:latest"
         docker push "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:latest"
