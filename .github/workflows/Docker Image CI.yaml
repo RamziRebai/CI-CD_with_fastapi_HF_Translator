@@ -1,0 +1,35 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  # Allow manually trigger
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-docker@v1
+
+    - name: Build and Test Docker Image
+      run: |
+        # Replace 'your-docker-image' with the name of your Docker image and 'your-dockerfile' with the path to the Dockerfile.
+        docker build -t deploy_translate -f Dockerfile .
+        # Add any test commands here, for example:
+        # docker run your-docker-image npm test
+
+    - name: Push Docker Image
+      if: github.event_name == 'pull_request' # Only push for pull requests
+      run: |
+        # Replace 'your-docker-image' with the name of your Docker image.
+        echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        docker tag deploy_translate "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:${GITHUB_SHA}"
+        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/your-docker-image:${GITHUB_SHA}"
+        docker tag deploy_translate "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:latest"
+        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/deploy_translate:latest"
