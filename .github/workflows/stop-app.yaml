@@ -16,4 +16,4 @@ jobs:
         sudo apt-get install -y procps
 
     - name: Stop FastAPI application
-      run: make killweb
+      run: sudo pkill uvicorn
