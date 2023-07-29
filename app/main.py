@@ -8,7 +8,6 @@ app= FastAPI(title="CI/CD Deployment of HuggingFace Translator EN to DE")
 
 class Phrase(BaseModel):
     text: str
-translate= pipeline('translation', model='Helsinki-NLP/opus-mt-en-de')
 
 @app.on_event("startup")
 def load_model():
