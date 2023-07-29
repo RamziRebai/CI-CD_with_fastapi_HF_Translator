@@ -1,9 +1,11 @@
-name: Docker Image CI
+name: Docker Image CI/CD
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  # Allow manually trigger
+  #allow manually trigger
   workflow_dispatch:
 
 jobs:
@@ -18,10 +20,6 @@ jobs:
       uses: docker/setup-docker@v1
 
     - name: Build Docker Image
-      run: |
-        # Replace 'your-docker-image' with the name of your Docker image and 'your-dockerfile' with the path to the Dockerfile.
-        docker build -t deploy_translate -f Dockerfile .
+      run: docker build -t deploy_translate -f Dockerfile .
     - name: Spin up Docker Image
-      run: |
-        # Replace 'your-docker-image' with the name of your Docker image and 'your-dockerfile' with the path to the Dockerfile.
-        docker run --rm -p 8099:80 deploy_translate      
+      run: docker run --rm -p 8099:80 deploy_translate      
