@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+transformers
+pytorch
+sacremoses
+
+black
+pylint
+pytest
