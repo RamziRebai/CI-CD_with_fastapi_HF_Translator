@@ -13,6 +13,9 @@ run-uvicorn:
 		uvicorn app.main:app --port 8088 --reload
 killweb:
 		sudo killall uvicorn
+container-lint:
+		docker run --rm -i hadolint/hadolint < Dockerfile
+
 all:	
 		install lint pytest run-uvicorn
 

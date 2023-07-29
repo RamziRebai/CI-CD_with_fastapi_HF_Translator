@@ -5,6 +5,7 @@ tensorflow
 evaluate
 datasets
 transformers[sentencepiece]
+sacremoses
 
 black
 pylint
