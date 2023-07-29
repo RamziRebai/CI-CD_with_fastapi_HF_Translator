@@ -1,8 +1,9 @@
 fastapi
 uvicorn[standard]
-transformers
-pytorch
-sacremoses
+tensorflow
+evaluate
+datasets
+transformers[sentencepiece]
 
 black
 pylint

@@ -10,7 +10,7 @@ format:
 run:	
 		python app/main.py
 run-uvicorn:
-		uvicorn app.main:app --reload
+		uvicorn app.main:app --port 8088 --reload
 killweb:
 		sudo killall uvicorn
 all:	
