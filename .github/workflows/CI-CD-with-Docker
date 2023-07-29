@@ -19,6 +19,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t deploy_translate:latest .
 
+      - name: Spin up Docker image
+        run: docker run --rm -p 8099:80 deploy_translate:latest
+
       - name: Push Docker image to Docker Hub (if using Docker Hub)
         # If you're using a private registry, push the image to your registry
         # This example assumes you're using Docker Hub
