@@ -3,26 +3,41 @@ on:
   #allow manually trigger
   workflow_dispatch:
 
+name: Deploy ML Model
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+
 jobs:
-  build:
-    runs-on: ubuntu-latest  # You can choose other OS environments too
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to Docker Hub (if using Docker Hub)
-        # If you're using a private registry, add your login step here
-        # This example assumes you're using Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+      # Other steps, such as running tests or preparing the model artifacts, can be added here
 
-      - name: Build Docker image
-        run: docker build -t deploy_translate:latest .
+      - name: Build and push Docker image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        run: |
+          docker build -t deploy:latest .
+          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+          docker push deploy:latest
 
-      - name: Spin up Docker image
-        run: docker run --rm -p 8099:80 deploy_translate:latest
+      - name: Deploy to server via SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan your_server_ip >> ~/.ssh/known_hosts
+          # Replace the following command with your actual deployment command.
+          # This could be a script that pulls the latest Docker image and runs it.
+          ssh root@172.16.5.4 "docker pull deploy:latest && docker run -d -p 80:80 deploy:latest"
 
-      - name: Push Docker image to Docker Hub (if using Docker Hub)
-        # If you're using a private registry, push the image to your registry
-        # This example assumes you're using Docker Hub
-        run: docker push deploy_translate:latest
