@@ -1,25 +1,25 @@
-name: Docker Image CI/CD
-
+name: Docker Build
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   #allow manually trigger
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # You can choose other OS environments too
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker
-      uses: docker/setup-docker@v1
+      - name: Login to Docker Hub (if using Docker Hub)
+        # If you're using a private registry, add your login step here
+        # This example assumes you're using Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-    - name: Build Docker Image
-      run: docker build -t deploy_translate -f Dockerfile .
-    - name: Spin up Docker Image
-      run: docker run --rm -p 8099:80 deploy_translate      
+      - name: Build Docker image
+        run: docker build -t deploy_translate:latest .
+
+      - name: Push Docker image to Docker Hub (if using Docker Hub)
+        # If you're using a private registry, push the image to your registry
+        # This example assumes you're using Docker Hub
+        run: docker push deploy_translate:latest
