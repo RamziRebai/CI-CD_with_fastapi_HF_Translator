@@ -4,6 +4,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  #allow manually trigger
   workflow_dispatch:
 
 jobs:
