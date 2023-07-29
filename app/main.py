@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from transformers import pipeline
 
-app= FastAPI(title="Deployment of HuggingFace Translator EN to DE")
+app= FastAPI(title="CI/CD Deployment of HuggingFace Translator EN to DE")
 
 class Phrase(BaseModel):
     text: str
