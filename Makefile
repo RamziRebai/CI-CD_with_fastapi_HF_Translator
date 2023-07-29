@@ -12,7 +12,7 @@ run:
 run-uvicorn:
 		uvicorn app.main:app --port 8088 --reload
 killweb:
-		sudo killall uvicorn
+		sudo pkill uvicorn
 all:	
 		install lint pytest run-uvicorn
 
