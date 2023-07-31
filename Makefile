@@ -15,6 +15,8 @@ killweb:
 		sudo killall uvicorn
 container-lint:
 		docker run --rm -i hadolint/hadolint < Dockerfile
+distroless-lint:
+		docker run --rm -i hadolint/hadolint < Distroless.Dockerfile
 
 all:	
 		install lint pytest run-uvicorn
