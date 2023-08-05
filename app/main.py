@@ -6,13 +6,15 @@ from transformers import pipeline
 
 app= FastAPI(title="CI/CD Deployment of HuggingFace Translator EN to DE")
 
+translate= pipeline('translation', model='Helsinki-NLP/opus-mt-en-de')
+
 class Phrase(BaseModel):
     text: str
 
-@app.on_event("startup")
-def load_model():
-    global translate
-    translate= pipeline('translation', model='Helsinki-NLP/opus-mt-en-de')
+#@app.on_event("startup")
+#def load_model():
+    #global translate
+    #translate= pipeline('translation', model='Helsinki-NLP/opus-mt-en-de')
 
 @app.get("/")
 def home():
