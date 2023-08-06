@@ -1,4 +1,4 @@
-name: Azure Container Registry
+name: Trigger Auto Deployment for hf-azure-c-app
 env:
   AZURE_CONTAINER_APP_NAME: hf-azure-c-app
   AZURE_GROUP_NAME: HFAzureCR
