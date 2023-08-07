@@ -64,7 +64,7 @@ jobs:
       - name: Check Az CLI installation
         run: az --version
       - name: Update Azure CLI
-        run: az upgrade
+        run: az upgrade --yes --only-show-errors
       - name: Print Azure Variables
         run: |
           echo "CLIENT_ID: $CLIENT_ID"
@@ -76,10 +76,6 @@ jobs:
         if: ${{ failure() }}
         run: |
           echo "Azure Login Failed"
-
-
-
-
       - name: Azure Login
         uses: azure/login@v1
         with:
