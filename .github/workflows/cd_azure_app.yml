@@ -1,6 +1,6 @@
 name: Trigger Auto Deployment for hfazurecontapp
 env:
-  AZURE_CONTAINER_APP_NAME: hf-azure-c-app
+  AZURE_CONTAINER_APP_NAME: hfazurecontapp
   AZURE_GROUP_NAME: HFAzureCR
 
 # This is a basic workflow to help you get started with Action
