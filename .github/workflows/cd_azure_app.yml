@@ -63,8 +63,6 @@ jobs:
 
       - name: Check Az CLI installation
         run: az --version
-      - name: Update Azure CLI
-        run: az upgrade --yes --only-show-errors
       - name: Print Azure Variables
         run: |
           echo "CLIENT_ID: $CLIENT_ID"
