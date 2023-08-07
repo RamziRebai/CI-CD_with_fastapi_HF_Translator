@@ -63,8 +63,6 @@ jobs:
 
       - name: Check Az CLI installation
         run: az --version
-      - name: Debug Azure Command
-        run: az group list --output json
       - name: Update Azure CLI
         run: az upgrade
       - name: Print Azure Variables
