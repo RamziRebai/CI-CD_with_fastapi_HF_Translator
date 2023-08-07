@@ -63,6 +63,24 @@ jobs:
 
       - name: Check Az CLI installation
         run: az --version
+      - name: Debug Azure Command
+        run: az group list --output json
+      - name: Update Azure CLI
+        run: az upgrade
+      - name: Print Azure Variables
+        run: |
+          echo "CLIENT_ID: $CLIENT_ID"
+          echo "TENANT_ID: $TENANT_ID"
+          echo "CLIENT_SECRET: $CLIENT_SECRET"
+      - name: Debug Azure Command
+        run: az group list --output json
+      - name: Azure Login
+        if: ${{ failure() }}
+        run: |
+          echo "Azure Login Failed"
+
+
+
 
       - name: Azure Login
         uses: azure/login@v1
