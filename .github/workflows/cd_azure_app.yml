@@ -58,10 +58,20 @@ jobs:
     needs: build
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check Az CLI installation
+        run: az --version
+
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.CREDENTIALS_SECRET }}
+          enable-AzPSSession: false
+          environment: azurecloud
+          allow-no-subscriptions: false
+          audience: api://AzureADTokenExchange
 
       - name: Deploy to containerapp
         uses: azure/CLI@v1
